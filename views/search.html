@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handy Manny Services - Search</title>
+    <link rel="stylesheet" href="/css/search_style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Handy Manny</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/views/home.html">Home</a></li>
+            <li><a href="/views/search.html" class="active">Search</a></li>
+            
+            <li><a href="/views/booking.html">Book Now</a></li>
+            
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#">Manage</a>
+            <a href="#">Sign Out</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <header class="search-header">
+            <input type="text" placeholder="Search...">
+            <button class="clear-btn">Search</button>
+            <div class="profile-notifications">
+                <img src="/public/images/pngegg (15).png" alt="Profile">
+            </div>
+        </header>
+
+        <section class="search-results">
+            <h2>My Searches</h2>
+            <ul class="search-list">
+                <li><img src="/public/images/carpentry.jpg" alt="Carpentry Services"><span>Carpentry Services</span> <small>Nanny Services</small></li>
+                <li><img src="/public/images/cleaning.jpg" alt="Cleaning Services"><span>Cleaning Services</span> <small>Handyman Services</small></li>
+                <li><img src="/public/images/plumbing.jpg" alt="Plumbing Services"><span>Plumbing Services</span> <small>Carpenter Services</small></li>
+                <li><img src="/public/images/painter.jpg" alt="Painter Services"><span>Painter Services</span> <small>Maid Services</small></li>
+                <li><img src="/public/images/electrician.jpg" alt="Electrician Services"><span>Electrician Services</span> <small>Painting Services</small></li>
+            </ul>
+        </section>
+    
+        <section class="recommendations">
+            <h2>Recommended for You</h2>
+            <div class="recommendation-grid">
+                <div class="recommendation-item"><a href="/views/electrician.html"><img src="/images/electrician.png" alt="Electrician Mix"><span>Electrician</span></a></div>
+                <div class="recommendation-item"><a href="/views/plumber.html"><img src="/images/plumber.png" alt="Plumber Mix"><span>Plumber</span></a></div>
+                <div class="recommendation-item"><a href="/views/painter.html"><img src="/images/painter.png" alt="Painter Mix"><span>Painter</span></a></div>
+                <div class="recommendation-item"><a href="/views/maid.html"><img src="/images/maid.png" alt="Maid Mix"><span>Maid</span></a></div>
+                <div class="recommendation-item"><a href="/views/carpenter.html"><img src="/images/carpenter.png" alt="Carpenter Mix"><span>Carpenter</span></a></div>
+                <div class="recommendation-item"><a href="/views/nanny.html"><img src="/images/nanny.png" alt="Nanny Mix"><span>Nanny</span></a></div>
+                <div class="recommendation-item"><a href="/views/cook.html"><img src="/images/cook.png" alt="Cook Mix"><span>Cook</span></a></div>
+                <div class="recommendation-item"><a href="/views/security.html"><img src="/images/security.png" alt="Security Mix"><span>Security</span></a></div>
+            </div>
+        </section>
+    </div>
+    <script src="/js/search.js"></script>
+    <script src="/js/dark-mode.js"></script>
+</body>
+</html>

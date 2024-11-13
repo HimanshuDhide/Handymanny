@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handy Manny Services</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    /*password toggle */
+    .form-group {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 14px;
+      color: #666;
+    }
+    .toggle-password:hover {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Handy Manny Services</h1>
+    <p>Your Chores our responsibility.</p>
+  </header>
+
+  <button id="toggle-dark-mode" class="dark-mode-toggle">Dark Mode</button>
+
+  <main>
+    <section class="left-section">
+      <h2>Find the perfect service for any need</h2>
+      <p>Book reliable local professionals in your area</p>
+      <div class="illustration">
+        <img src="/images/pngegg (1).png" alt="Person booking service on a phone">
+      </div>
+      <p>Book services on the go!</p>
+    </section>
+
+    <section class="right-section">
+      <h2>Get started with Handy Manny</h2>
+      <p>Enjoy hassle-free booking. No commitments.</p>
+      <form id="signup-form">
+        <div class="form-group">
+          <input type="text" id="full-name" required>
+          <label for="full-name">Your full name</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" required>
+          <label for="email">Email</label>
+        </div>
+        <div class="form-group">
+          <input type="password" id="password" required
+                 pattern="(?=.*\d)(?=.*[\W_]).{8,}"
+                 title="Password must be at least 8 characters long and include at least one number and one special character.">
+          <label for="password">Password</label>
+          <span class="toggle-password" onclick="togglePasswordVisibility('password')">Show</span>
+          <span id="password-error" style="color: red; display: none;">Password must be at least 8 characters long and include at least one number and one special character.</span>
+        </div>
+        <div class="form-group">
+          <input type="password" id="repeat-password" required>
+          <label for="repeat-password">Repeat password</label>
+          <span class="toggle-password" onclick="togglePasswordVisibility('repeat-password')">Show</span>
+          <span id="repeat-password-error" style="color: red; display: none;">Passwords do not match.</span>
+        </div>
+        <div class="form-group">
+          <input type="text" id="address" required>
+          <label for="address">Your Address</label>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="phone-number" required>
+          <label for="phone-number">Your Phone Number</label>
+          <span id="phone-number-error" style="color: red; display: none;">Phone number must be 10 digits.</span>
+        </div>
+        <button type="submit">Book now</button>
+        <p>or sign in with</p>
+        <div class="social-buttons">
+          <button type="button" class="google-button" id="google-login">
+            <img src="/images/pngegg (2).png" alt="Google logo"> Google
+          </button>
+          <button type="button" class="facebook-button" id="facebook-login">
+            <img src="/images/pngegg (3).png" alt="Facebook logo"> Facebook
+          </button>
+        </div>
+        <p class="provider-link">
+          <a href="/views/login.html">Already have an account</a><br>
+          <a href="/views/service_provider_login.html">Register as Service Provider</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <script src="/js/script.js"></script>
+  <script>
+    // password visibility
+    function togglePasswordVisibility(fieldId) {
+      const field = document.getElementById(fieldId);
+      const toggle = field.nextElementSibling;
+      if (field.type === 'password') {
+        field.type = 'text';
+        toggle.textContent = 'Hide';
+      } else {
+        field.type = 'password';
+        toggle.textContent = 'Show';
+      }
+    }
+  </script>
+  <script src="/js/dark-mode.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #f4f4f4;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 225px;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}
+
+.sidebar-header {
+    color: #333;
+    padding: 20px;
+    background-color:#f5f5f5;
+    text-align: center;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    padding: 15px 20px;
+}
+
+.sidebar-menu li a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.sidebar-menu li a.active, .sidebar-menu li a:hover {
+    color: #ff6b6b;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    text-decoration: none;
+    color: #333;
+    display: block;
+    font-size: 18px;
+}
+
+/* Content Styles */
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    flex: 1;
+}
+
+/* Search Header Styles */
+.search-header {
+        display: flex;
+        align-items: center;
+        background-color: #fff; /* Match with content background */
+        padding: 15px 20px; /* Consistent padding */
+        border-radius: 8px; /* Match border-radius with other elements */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Consistent shadow */
+        margin-bottom: 20px; /* Adjust margin if needed */
+        border: 1px solid #ddd;  /* Reduced margin to minimize space */
+}
+
+.search-header input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px; /* Match border-radius */
+    border: 1px solid #ddd; /* Match border color */
+    font-size: 16px;
+    background-color: #f9f9f9;
+}
+
+.search-header .clear-btn {
+    padding: 10px 20px;
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    border-radius: 8px; /* Match border-radius */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-header .profile-notifications img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.book-btn {
+    
+    background-color: #ff6666; 
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 25%;
+    
+    
+}
+
+
+/* Map Styles */
+#map {
+    height: 50vh;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Provider Details Styles */
+.provider-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.provider-details h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.provider-details p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.provider-details .ratings {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #FFD700;
+}
+
+.provider-details .reviews h4 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.provider-details .reviews p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #f4f4f4;
+    color: #100101;
+    width: calc(100% - 250px);
+    margin-left: 250px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0 8px 8px 0;
+}

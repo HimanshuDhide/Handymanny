@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handy Manny Services</title>
+    <link rel="stylesheet" href="/css/timingbook.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="profile-info">
+                <img src="/images/pngegg (15).png" alt="Handy Manny Services" class="profile-pic">
+                <div>
+                    <h2>Handy Manny Services</h2>
+                    <p>You're Just a few clicks away from getting your work done</p>
+                    <p>Available Mon-Fri, 10:00 AM to 10:00 PM</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button><img src="tool-icon.png" alt="tool"></button>
+                <button><img src="paint-icon.png" alt="paint"></button>
+                <button><img src="help-icon.png" alt="help"></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1>Book Your Appointment</h1>
+        <div id="provider-info"></div>
+        <section class="calendar-section">
+            <div class="calendar-header">
+                <span>Appointment's Date</span>
+            </div>
+            <div id="calendar">
+                <div class="month-navigation">
+                    <button id="prev-month">Previous</button>
+                    <div class="month-year" id="month-year"></div>
+                    <button id="next-month">Next</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="time-slot-section">
+            <h3>Select a time slot</h3>
+            <div class="time-slots">
+                <!-- Time Slots -->
+                <button>10:00 AM</button><button>10:30 AM</button>
+                <button>11:00 AM</button><button>11:30 AM</button>
+                <button>12:00 PM</button><button>12:30 PM</button>
+                <button>1:00 PM</button><button>1:30 PM</button>
+                <button>2:00 PM</button><button>2:30 PM</button>
+                <button>3:00 PM</button><button>3:30 PM</button>
+                <button>4:00 PM</button><button>4:30 PM</button>
+                <button>5:00 PM</button><button>5:30 PM</button>
+                <button>6:00 PM</button><button>6:30 PM</button>
+                <button>7:00 PM</button><button>7:30 PM</button>
+                <button>8:00 PM</button><button>8:30 PM</button>
+                <button>9:00 PM</button><button>9:30 PM</button>
+                <button>10:00 PM</button>
+            </div>
+        </section>
+
+        <div class="book-btn">
+            <button id="book-appointment">Book Appointment</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <p>Handy Manny</p>
+                <p>Connect with us:</p>
+                <div class="social-icons">
+                    <img src="twitter-icon.png" alt="Twitter">
+                    <img src="instagram-icon.png" alt="Instagram">
+                    <img src="spotify-icon.png" alt="Spotify">
+                </div>
+            </div>
+            <div>
+                <p>Company</p>
+                <ul>
+                    <li><a href="/views/aboutus.html">About Us</a></li>
+                    <li><a href="pripolicy.html">Privacy Policy</a></li>
+                    <li><a href="termsofuse.html">Terms of Use</a></li>
+                </ul>
+            </div>
+            <div>
+                <p>Community</p>
+                <ul>
+                    <li>Our Experts</li>
+                    <li>Customer Reviews</li>
+                    <li>Handy Tips</li>
+                </ul>
+            </div>
+            <div>
+                <p>Help</p>
+                <ul>
+                    <li>Support</li>
+                    <li>FAQs</li>
+                    <li>Mobile App</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const providerName = localStorage.getItem('providerName');
+            const providerPhone = localStorage.getItem('providerPhone');
+
+            if (providerName && providerPhone) {
+                document.getElementById('provider-info').innerHTML = `
+                    <h3>Selected Provider:</h3>
+                    <p>Name: ${providerName}</p>
+                    <p>Phone: ${providerPhone}</p>
+                `;
+            } else {
+                document.getElementById('provider-info').innerHTML = `<p>No provider selected.</p>`;
+            }
+        });
+
+        var currentDate = new Date();
+        var selectedDate = null;
+        var selectedTimeSlot = null;
+
+        function generateCalendar(month, year) {
+            var calendarBody = document.getElementById('calendar-body');
+            calendarBody.innerHTML = ''; 
+            var monthYearDisplay = document.getElementById('month-year');
+            var daysInMonth = new Date(year, month + 1, 0).getDate();
+            var firstDay = new Date(year, month, 1).getDay();
+
+            monthYearDisplay.textContent = new Date(year, month).toLocaleString('default', { month: 'long' }) + ' ' + year;
+
+            var row = document.createElement('tr');
+            for (var i = 0; i < firstDay; i++) {
+                row.appendChild(document.createElement('td'));
+            }
+
+            for (var day = 1; day <= daysInMonth; day++) {
+                if ((firstDay + day - 1) % 7 === 0 && day !== 1) {
+                    calendarBody.appendChild(row);
+                    row = document.createElement('tr');
+                }
+
+                var cell = document.createElement('td');
+                cell.textContent = day;
+
+                cell.addEventListener('click', function() {
+                    if (selectedDate) {
+                        selectedDate.classList.remove('selected');
+                    }
+                    this.classList.add('selected');
+                    selectedDate = this;
+
+                    // Format the selected date in dd/mm/yyyy format
+                    var selectedDay = this.textContent;
+                    var selectedMonth = String(month + 1).padStart(2, '0'); 
+                    var selectedYear = year;
+                    var formattedDate = `${selectedDay}/${selectedMonth}/${selectedYear}`;
+
+                    localStorage.setItem('bookingDate', formattedDate);
+                    console.log('Selected Date:', formattedDate); // Debug log
+                });
+
+                row.appendChild(cell);
+            }
+            calendarBody.appendChild(row);
+        }
+
+        function loadPreviousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        }
+
+        function loadNextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        }
+
+        generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+
+        document.getElementById('prev-month').addEventListener('click', loadPreviousMonth);
+        document.getElementById('next-month').addEventListener('click', loadNextMonth);
+
+        var timeSlots = document.querySelectorAll('.time-slots button');
+        timeSlots.forEach(function(button) {
+            button.addEventListener('click', function() {
+                if (selectedTimeSlot) {
+                    selectedTimeSlot.classList.remove('selected');
+                }
+                this.classList.add('selected');
+                selectedTimeSlot = this;
+                console.log('Selected Time Slot:', selectedTimeSlot.textContent); // Debug log
+            });
+        });
+
+        document.getElementById('book-appointment').addEventListener('click', function() {
+            if (selectedDate && selectedTimeSlot) {
+                var selectedTimeSlotText = selectedTimeSlot.textContent;
+
+                var bookingDate = localStorage.getItem('bookingDate');  // Fetch the formatted date from localStorage
+
+                localStorage.setItem('bookingTimeSlot', selectedTimeSlotText);
+
+                // Log the booking details for debugging
+                console.log('Booking Date:', bookingDate);
+                console.log('Booking Time:', selectedTimeSlotText);
+
+                // Redirect to the booking page with the selected date and time
+                window.location.href = 'booking.html'; // Adjust the path if necessary
+            } else {
+                alert('Please select both a date and a time slot.');
+            }
+        });
+    </script>
+</body>
+</html>

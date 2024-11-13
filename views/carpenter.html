@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find carpenters - Handy Manny Services</title>
+    <link rel="stylesheet" href="/css/electrician.css">
+    <style>
+        /* Styles from your provided code */
+        #map {
+            height: 50vh;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .provider-details {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .provider-details h3 {
+            margin-top: 0;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .provider-details p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .provider-details .ratings {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #FFD700;
+        }
+        .provider-details .reviews {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .book-btn {
+            background-color: #ff6666;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .book-btn:hover {
+            background-color: #ff4c4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Handy</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/views/home.html">Home</a></li>
+            <li><a href="/views/search.html" class="active">Search</a></li>
+            <li><a href="/views/service.html">Service</a></li>
+            <li><a href="/views/booking.html">Book Now</a></li>
+            <li><a href="/views/favorites.html">Favorites</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#">Manage</a>
+            <a href="#">Sign Out</a>
+        </div>
+    </div>
+    <div class="content">
+        <header class="search-header">
+            <input type="text" placeholder="Search...">
+            <button class="clear-btn">Clear</button>
+            <div class="profile-notifications">
+                <img src="images/profile.png" alt="Profile">
+            </div>
+        </header>
+        <section class="search-results">
+            <h2>Find Nearby Carpenters</h2>
+            <div id="map"></div>
+        </section>
+        <section id="providers-list">
+            <!-- Providers will be loaded here dynamically -->
+        </section>
+    </div>
+    <footer>
+        <p>Created by Himanshu Dhide</p>
+    </footer>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2gWjMll7qGn6Rx5jEIlKZuTBUyaYyOLY&callback=initMap" async defer></script>
+    <script>
+        let map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 19.2207, lng: 73.0957 },
+                zoom: 12
+            });
+
+            new google.maps.Marker({
+                position: { lat: 19.2207, lng: 73.0957 },
+                map: map,
+                title: 'Service Provider Location'
+            });
+        }
+
+        async function loadProviders() {
+            try {
+                const response = await fetch('/service-provider/carpenters');
+                if (!response.ok) {
+                    throw new Error('No providers found');
+                }
+                const providers = await response.json();
+
+                const providersList = document.getElementById('providers-list');
+                providersList.innerHTML = ''; // Clear previous content
+
+                providers.forEach(provider => {
+                    providersList.innerHTML += `
+                        <div class="provider-details">
+                            <h3><strong>Name:</strong> ${provider.name}</h3>
+                            <p><strong>Address:</strong> ${provider.address}</p>
+                            <p><strong>Phone Number:</strong> ${provider.phoneNumber}</p>
+                            <p><strong>Profession:</strong> ${provider.profession}</p>
+                            <div class="ratings">
+                                <strong>Ratings:</strong> 4/5
+                            </div><br>
+<button class="book-btn" onclick="selectProvider('${provider.name}', '${provider.phoneNumber}')">Book ${provider.profession}</button>
+
+                            <div class="reviews">
+                                <h4>Reviews:</h4>
+                                <p>"Excellent service! Very professional and on time." - Sneha Choudhary</p>
+                                <p>"Highly recommended for any ${provider.profession} work." - Saunskar Dhide</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error fetching providers:', error);
+                const providersList = document.getElementById('providers-list');
+                providersList.innerHTML = `<p>${error.message}</p>`;
+            }
+        }
+
+        async function navigateToProviderAddress(address) {
+            const geocoder = new google.maps.Geocoder();
+
+            // Use a promise to handle geocoding
+            try {
+                const results = await new Promise((resolve, reject) => {
+                    geocoder.geocode({ address: address }, (results, status) => {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            resolve(results);
+                        } else {
+                            reject(status);
+                        }
+                    });
+                });
+
+                if (results && results.length > 0) {
+                    const location = results[0].geometry.location;
+                    // Center the map on the provider's location
+                    map.setCenter(location);
+                    // Clear previous markers
+                    clearMarkers();
+                    // Add a new marker for the provider's location
+                    const marker = new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        title: address
+                    });
+                    markers.push(marker);
+                } else {
+                    console.error('No results found for the address:', address);
+                    alert('No results found for this address. Please try a different one.');
+                }
+            } catch (error) {
+                console.error('Geocode was not successful for the following reason: ' + error);
+                alert('Error occurred while fetching the address. Please try again.');
+            }
+        }
+
+        function clearMarkers() {
+            markers.forEach(marker => {
+                marker.setMap(null);
+            });
+            markers = []; // Reset the markers array
+        }
+
+
+        loadProviders(); // Call the function to load providers on page load
+
+        
+        function selectProvider(name, phone) {
+            // Store provider details in localStorage
+            localStorage.setItem('providerName', name);
+            localStorage.setItem('providerPhone', phone);
+
+            // Redirect to timing page to select date and time
+            window.location.href = 'timingbook.html';
+        }
+    </script>
+    <script src="/js/dark-mode.js"></script>
+</body>
+</html>

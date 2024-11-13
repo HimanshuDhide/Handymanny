@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Provider Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+
+        .nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav ul li {
+            margin-bottom: 20px;
+        }
+
+        .nav ul li a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .nav ul li a.active {
+            color: #ff6b6b;
+        }
+
+        .nav ul li a i {
+            margin-right: 10px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+        }
+
+        .sidebar-footer a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            overflow-y: auto; /* Allow scrolling if content exceeds the view */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .btn-book {
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            margin-left: 20px;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-icons i {
+            font-size: 20px;
+            margin-left: 20px;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+
+        .bookings h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .appointments {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between cards */
+        }
+
+        .appointment-card {
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .appointment-details {
+            margin-bottom: 10px; /* Space between details */
+        }
+
+        .appointment-details strong {
+            margin-right: 10px; /* Space between label and value */
+        }
+
+        .appointment-card button {
+            padding: 8px 15px; /* Smaller button */
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            margin-top: 10px;
+            width: fit-content; /* Make button width fit content */
+        }
+
+        .order-status {
+            margin-top: 10px; /* Space above status buttons */
+        }
+
+        .status-button {
+            padding: 5px 10px; /* Smaller button */
+            background-color: #4CAF50; /* Change status button color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .status-button:hover {
+            background-color: #45a049; /* Darker shade on hover */
+        }
+
+        .sidebar .nav a.active-link {
+            color: #ff6666; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">My Services</div>
+            <div class="nav">
+                <ul>
+                    <li><a href="#" class="active">Dashboard</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="pripolicy.html">Privacy Policy</a></li>
+                    <li><a href="termsofuse.html">Terms of Use</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <a href="#">Logout</a>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Welcome,Service Provider!</h1>
+                <div class="header-icons">
+                    <i class="fas fa-bell"></i>
+                    <i class="fas fa-user-circle profile-pic"></i>
+                </div>
+            </div>
+            <div class="bookings">
+                <h1>Your Orders</h1>
+                <div class="appointments" id="orderItems">
+                    <!-- Orders will be displayed here as individual cards -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample Order Data (Replace with actual data from database/API)
+        const orders = [
+            {
+                userName: 'Ram',
+                userAddress: ' Dombivli',
+                date: '25/9/2024',
+                timeSlot: '16:00 pm',
+                contact: '9594773192',
+                status: 'Pending'
+            },
+            {
+                userName: 'Saroj',
+                userAddress: ' Dombivli',
+                date: '26/9/2024',
+                timeSlot: '10:00 am',
+                contact: '9876543210',
+                status: 'Pending'
+            }
+        ];
+
+        const orderList = document.getElementById('orderItems');
+
+        // Function to add orders to the list
+        function displayOrders() {
+            orderList.innerHTML = ''; // Clear previous list
+
+            orders.forEach(order => {
+                const card = document.createElement('div');
+                card.className = 'appointment-card';
+                card.innerHTML = `
+                    <div class="appointment-details">
+                        <strong>Customer:</strong> ${order.userName}
+                    </div>
+                    <div class="appointment-details">
+                        <strong>Address:</strong> ${order.userAddress}
+                    </div>
+                    <div class="appointment-details">
+                        <strong>Date:</strong> ${order.date}
+                    </div>
+                    <div class="appointment-details">
+                        <strong>Time Slot:</strong> ${order.timeSlot}
+                    </div>
+                    <div class="appointment-details">
+                        <strong>Contact Number:</strong> ${order.contact}
+                    </div>
+                    <div class="appointment-details">
+                        <strong>Status:</strong> <span class="status">${order.status}</span>
+                    </div>
+                    <div class="order-status">
+                        <button class="status-button" onclick="changeOrderStatus('${order.contact}')">Change Status</button>
+                        <button class="accept-button" onclick="acceptOrder('${order.contact}')">Accept Order</button>
+                    </div>
+                `;
+                orderList.appendChild(card);
+            });
+        }
+
+        // Accept order and notify customer
+        function acceptOrder(contact) {
+            alert(`Order accepted. Notifying customer at ${contact}`);
+            // Code to send acceptance notification to customer
+            // You can add an API call here to update the order status in your database
+        }
+
+        // Change order status function
+        function changeOrderStatus(contact) {
+            // Update the order status in the orders array
+            const order = orders.find(order => order.contact === contact);
+            if (order) {
+                order.status = 'Completed';
+                displayOrders(); // Refresh the displayed orders
+                alert(`Order status for customer at ${contact} changed to Completed.`);
+            }
+        }
+
+        // Call the displayOrders function when page loads
+        window.onload = displayOrders;
+
+        // Function to set the service provider's name
+        function setProviderName(name) {
+            document.getElementById('providerName').textContent = name;
+        }
+
+        // Set the service provider's name (this should be set based on login data)
+        setProviderName('Himanshu');
+    </script>
+</body>
+</html>

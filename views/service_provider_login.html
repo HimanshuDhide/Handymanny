@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Provider Registration</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/service_provider_login.css">
+</head>
+<body>
+    <header>
+        <h1>Handy Manny Services</h1>
+        <p>Join Handy Manny to offer your services.</p>
+    </header>
+
+    <main>
+        <section class="left-section">
+            <h2>Join the Handy Manny Service Network</h2>
+            <p>Reach local customers easily</p>
+            <div class="illustration">
+                <img src="/images/pngegg (1).png" alt="Service provider registration illustration">
+            </div>
+            <p>Grow your business with us!</p>
+        </section>
+
+        <section class="right-section">
+            <h2>Register as a Service Provider</h2>
+            <p>Fill in your details to get started.</p>
+            <form id="service-provider-form" action="service_home.html">
+                <div class="form-group">
+                    <input type="text" id="provider-name" required>
+                    <label for="provider-name">Full Name</label>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="provider-phone" required>
+                    <label for="provider-phone">Phone Number</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="provider-email" required>
+                    <label for="provider-email">Email Address</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="provider-password" required>
+                    <label for="provider-password">Password</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="provider-address" required>
+                    <label for="provider-address">Your Address</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="provider-skills" required>
+                    <label for="provider-skills">Skills/Services</label>
+                </div>
+                <div class="form-group">
+                    <input type="file" id="provider-document" accept="application/pdf" required>
+                    <label for="provider-document">Document as Proof (PDF)</label>
+                </div>
+                <div class="button-group">
+                    <button type="submit">Register</button>
+                    <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                <p>or sign in with</p>
+                <div class="social-buttons">
+                  <button type="button" class="google-button" id="google-login">
+                    <img src="/images/pngegg (2).png" alt="Google logo"> Google
+                  </button>
+                  <button type="button" class="facebook-button" id="facebook-login">
+                    <img src="/images/pngegg (3).png" alt="Facebook logo"> Facebook
+                  </button>
+                </div>
+                <p class="provider-link">
+                  <a href="/views/login.html">Already have an account</a><br>
+            </form>
+        </section>
+    </main>
+
+    <script src="/js/script.js"></script>
+    <script src="/js/dark-mode.js"></script>
+</body>
+</html>

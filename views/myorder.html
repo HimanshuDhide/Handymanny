@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🔧 Services</div>
+            <ul>
+                <li><a href="#">My Orders</a></li>
+                <li><a href="#">Special</a></li>
+                <li><a href="#" class="active">Track</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+            <div class="search-container">
+                <input type="text" placeholder="Search for services">
+                <button type="submit">🔍</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="left-section">
+            <h2>Your Order Status</h2>
+            <p id="order-status">Loading order status...</p>
+            <h3>Order Details:</h3>
+            <ul>
+                <li><strong>Service Provider Name:</strong> <span id="provider-name-value">N/A</span></li>
+                <li><strong>Contact Number:</strong> <span id="provider-number-value">N/A</span></li>
+                <li><strong>Date:</strong> <span id="appointment-date-value">N/A</span></li>
+                <li><strong>Time Slot:</strong> <span id="appointment-time-value">N/A</span></li>
+                <li><strong>Status:</strong> <span id="order-status-value">N/A</span></li>
+            </ul>
+            <p>Thank you for booking a service with us. We are currently working on matching you with the right service provider.
+                Our team will reach out to you shortly to confirm the details and finalize the booking.
+            </p>
+            <p>Handy Manny</p>
+        </section>
+
+        <section class="right-section">
+            <div class="illustration">
+                <img src="camera.jpg" alt="Handyman Services">
+                <h3>Handyman Services Inc.</h3>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-left">
+            <h3>Connect with us</h3>
+            <div class="social-links">
+                <a href="#">📷 Instagram</a>
+                <a href="#">🐦 Twitter</a>
+                <a href="#">🎵 Spotify</a>
+            </div>
+        </div>
+        <div class="footer-right">
+            <div class="footer-section">
+                <h4>Company</h4>
+                <p><a href="#">About us</a></p>
+                <p><a href="#">Privacy policy</a></p>
+                <p><a href="#">Terms of use</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <p><a href="#">Our Experts</a></p>
+                <p><a href="#">Customer Reviews</a></p>
+                <p><a href="#">Handy Tips</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Help</h4>
+                <p><a href="#">Support</a></p>
+                <p><a href="#">FAQs</a></p>
+                <p><a href="#">Mobile App</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="/public/js/myorder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userId = 'YOUR_USER_ID'; // Replace with actual user ID, or get it dynamically
+            try {
+                const response = await fetch(`/booking/details/${userId}`);
+                const booking = await response.json();
+
+                if (response.ok) {
+                    // Populate order details in the page
+                    document.getElementById('provider-name-value').textContent = booking.serviceProviderName;
+                    document.getElementById('provider-number-value').textContent = booking.serviceProviderNumber;
+                    document.getElementById('appointment-date-value').textContent = new Date(booking.date).toLocaleDateString();
+                    document.getElementById('appointment-time-value').textContent = booking.timeSlot;
+                    document.getElementById('order-status-value').textContent = booking.status ? 'Completed' : 'Pending' ; // Change this logic based on your needs
+                } else {
+                    // Handle no booking or error
+                    document.getElementById('order-status').textContent = 'No booking details found';
+                }
+            } catch (error) {
+                console.error('Error fetching booking details:', error);
+                document.getElementById('order-status').textContent = 'Failed to fetch booking details';
+            }
+        });
+    </script>
+    <script src="/js/dark-mode.js"></script>
+</body>
+</html>

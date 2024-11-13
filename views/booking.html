@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking</title>
+    <link rel="stylesheet" href="/css/booking.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">My Orders</a></li>
+                <li><a href="#" class="active">Track</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="left-section">
+            <h2>Your order is being processed</h2>
+            <p>Thank you for booking a service with us. Our Service Provider will soon contact you...</p>
+
+            <!-- Order Details Section -->
+            <div id="order-details" class="order-details">
+                <h2>Order Details</h2>
+                <p>Service Provider: <span id="provider-name-value"></span></p> 
+                <p>Contact Number: <span id="provider-number-value"></span></p> 
+                <p>Date: <span id="appointment-date-value"></span></p> 
+                <p>Time Slot: <span id="appointment-time-value"></span></p> 
+            </div>
+
+            <!-- Confirm Booking Button -->
+            <button id="confirmButton" onclick="confirmBooking()">Confirm Booking</button>
+        </section>
+
+        <section class="right-section">
+            <div class="illustration">
+                <img src="/images/pngegg (14).png" alt="Camera Equipment">
+            </div>
+            <h3>Handyman Services Inc.</h3>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h4>Handy Manny</h4>
+                <p>Connect with us:</p>
+                <ul class="social-icons">
+                    <li><a href="#"><img src="instagram-icon.png" alt="Instagram"></a></li>
+                    <li><a href="#"><img src="twitter-icon.png" alt="Twitter"></a></li>
+                    <li><a href="#"><img src="spotify-icon.png" alt="Spotify"></a></li>
+                </ul>
+            </div>
+            <div class="footer-right">
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="aboutus.html">About us</a></li>
+                        <li><a href="#">Privacy policy</a></li>
+                        <li><a href="#">Terms of use</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="#">Our Experts</a></li>
+                        <li><a href="#">Customer Reviews</a></li>
+                        <li><a href="#">Handy Tips</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Mobile App</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Retrieve provider details and appointment info from localStorage
+        const providerName = localStorage.getItem('providerName');
+        const providerPhone = localStorage.getItem('providerPhone');
+        const bookingDate = localStorage.getItem('bookingDate');
+        const bookingTimeSlot = localStorage.getItem('bookingTimeSlot');
+
+        // Display values or fallback if missing
+        document.getElementById('provider-name-value').textContent = providerName || 'Not Available';
+        document.getElementById('provider-number-value').textContent = providerPhone || 'Not Available';
+        document.getElementById('appointment-date-value').textContent = bookingDate || 'Not Available';
+        document.getElementById('appointment-time-value').textContent = bookingTimeSlot || 'Not Available';
+
+        function confirmBooking() {
+            // Prepare booking data
+            const bookingData = {
+                serviceProviderName: providerName,
+                serviceProviderNumber: providerPhone,
+                date: bookingDate,
+                timeSlot: bookingTimeSlot
+            };
+
+            // Store booking data in localStorage
+            localStorage.setItem('confirmedBooking', JSON.stringify(bookingData));
+
+            // Alert for booking confirmation
+            alert('Booking confirmed!');
+
+            // Navigate to home page
+            window.location.href = "/home";
+        }
+    </script>
+</body>
+</html>

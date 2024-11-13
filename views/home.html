@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Dashboard</title>
+    <link rel="stylesheet" href="/css/home_style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">Handy Manny</div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="/views/home.html" class="active-link"><i class="icon-home"></i> Home</a></li>
+                    <li><a href="/views/search.html" id="search-link"><i class="icon-search"></i> Search</a></li>
+                   
+                    <li><a href="/views/booking.html"><i class="icon-book"></i> Book Now</a></li>
+                   
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#"><i class="icon-manage"></i> Manage</a>
+                <a href="#"><i class="icon-signout"></i> Sign Out</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <input type="text" placeholder="Search for services" class="search-bar">
+                <button class="btn-book">Book</button>
+                <div class="header-icons">
+                    <i class="icon-bell"></i>
+                    <i class="icon-settings"></i>
+                    <div class="profile-pic"></div>
+                </div>
+            </header>
+
+            <!-- Bookings Section -->
+            <section class="bookings">
+                <h1>Bookings</h1>
+                <div class="appointments">
+                    <h2>Appointments</h2>
+                    <div class="appointment-card" id="appointment-card" style="display:none;">
+                        <i class="icon-calendar"></i>
+                        <div>
+                            <span id="provider-name">Provider Name: </span>
+                            <h3 id="provider-service">Service: </h3>
+                            <p id="appointment-date">Date: </p>
+                            <p id="appointment-time">Time: </p>
+                        </div>
+                    </div>
+                    <p id="no-appointments" style="display:none;">No bookings available</p>
+                </div>
+
+                <div class="service-details">
+                    <h2>Order Details</h2>
+                    <div class="chart">
+                        <ul id="order-details" style="display:none;">
+                            <li>Service Provider: <span id="order-provider"></span></li>
+                            <li>Date: <span id="order-date"></span></li>
+                            <li>Time: <span id="order-time"></span></li>
+                            <li>Service Type: <span id="order-service"></span></li>
+                        </ul>
+                        <p id="no-orders" style="display:none;">No orders available</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reviews Section -->
+            <section class="reviews">
+                <h2>Reviews</h2>
+                <div class="review">
+                    <img src="user1.jpg" alt="user1">
+                    <div>
+                        <span>Piyush</span>
+                        <p>Great service, highly recommended.</p>
+                        <div class="review-icons">
+                            <i class="icon-comment"></i>
+                            <i class="icon-star"></i>
+                            <i class="icon-share"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="review">
+                    <img src="user2.jpg" alt="user2">
+                    <div>
+                        <span>Himanshu</span>
+                        <p>Excellent work, very professional.</p>
+                        <div class="review-icons">
+                            <i class="icon-comment"></i>
+                            <i class="icon-star"></i>
+                            <i class="icon-share"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Function to retrieve booking details from localStorage and display them
+        function displayBookingDetails() {
+            // Retrieve confirmed booking data from localStorage
+            const confirmedBooking = JSON.parse(localStorage.getItem('confirmedBooking'));
+            
+            const appointmentCard = document.getElementById('appointment-card');
+            const noAppointmentsMessage = document.getElementById('no-appointments');
+
+            // Check if booking details exist and update UI
+            if (confirmedBooking) {
+                document.getElementById('provider-name').textContent = `Provider Name: ${confirmedBooking.serviceProviderName || 'Not Available'}`;
+                document.getElementById('provider-service').textContent = `Service: ${confirmedBooking.serviceType || 'Not Available'}`;
+                document.getElementById('appointment-date').textContent = `Date: ${confirmedBooking.date || 'Not Available'}`;
+                document.getElementById('appointment-time').textContent = `Time: ${confirmedBooking.timeSlot || 'Not Available'}`;
+                
+                noAppointmentsMessage.style.display = 'none';
+                appointmentCard.style.display = 'block';
+            } else {
+                appointmentCard.style.display = 'none';
+                noAppointmentsMessage.style.display = 'block';
+            }
+        }
+
+        // Call function to display booking details
+        displayBookingDetails();
+    </script>
+    <script src="/js/dark-mode.js"></script>
+</body>
+</html>
